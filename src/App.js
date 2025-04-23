@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -12,9 +12,18 @@ function App() {
     .then(data => setUsers(data))
   }
 
+  // upon loading a component/page, useEffect will kick in
+  // useEffect(setup/function, dependency)
+  useEffect(() => {
+    if(users.length === 0){
+      console.log("here");
+      fetchUsers();
+    }
+  });
+
   return (
     <div className="App">
-      <button onClick={fetchUsers}>Click me!</button>
+      {/* <button onClick={fetchUsers}>Click me!</button> */}
       {
         users.map(user => {
           const {id, name, email} = user;
